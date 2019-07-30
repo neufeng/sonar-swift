@@ -175,13 +175,17 @@ public class LizardReportParser {
         private int lineNumber;
 
         public SwiftFunction(String name) {
-            String[] vals = name.split(" ");
-            if(vals.length >= 3){
-                this.name = vals[0].substring(0,vals[0].indexOf("("));
-                this.file = vals[2].substring(0,vals[2].lastIndexOf(":"));
-                this.lineNumber = Integer.parseInt(vals[2].substring(vals[2].lastIndexOf(":")+1));
-                this.key = file.substring(0,file.lastIndexOf('.')+1)+name;
-            }else{
+            try {
+                String[] vals = name.split(" ");
+                if (vals.length >= 3) {
+                    this.name = vals[0].substring(0, vals[0].indexOf("("));
+                    this.file = vals[2].substring(0, vals[2].lastIndexOf(":"));
+                    this.lineNumber = Integer.parseInt(vals[2].substring(vals[2].lastIndexOf(":") + 1));
+                    this.key = file.substring(0, file.lastIndexOf('.') + 1) + name;
+                } else {
+                    this.key = name;
+                }
+            } catch (Exception e) {
                 this.key = name;
             }
         }
